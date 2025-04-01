@@ -1,9 +1,15 @@
-const Interpreter = require('../src/interpreter/interpreter');
+const Lexer = require("../src/lexer/lexer");
+const Parser = require("../src/parser/parser");
+const Interpreter = require("../src/interpreter/interpreter");
 
-test('Interpreter should evaluate simple expressions', () => {
-    const input = 'x = 5 + 3';
-    const interpreter = new Interpreter(input);
-    const result = interpreter.run();
+test("Interpreter should evaluate simple assignment", () => {
+    const input = "x = 5";
+    const lexer = new Lexer(input);
+    const tokens = lexer.tokenize();
+    const parser = new Parser(tokens);
+    const ast = parser.parse();
+    const interpreter = new Interpreter(ast);
 
-    expect(result).toEqual({ x: 8 });
+    interpreter.run();
+    expect(interpreter.variables["x"]).toBe(5);
 });

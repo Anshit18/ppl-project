@@ -1,21 +1,27 @@
-class Program {
+class ASTNode {
+    constructor(type) {
+        this.type = type;
+    }
+}
+
+class Program extends ASTNode {
     constructor(statements) {
-        this.type = "Program";
+        super("Program");
         this.statements = statements;
     }
 }
 
-class Assignment {
+class Assignment extends ASTNode {
     constructor(variable, expression) {
-        this.type = "Assignment";
+        super("Assignment");
         this.variable = variable;
         this.expression = expression;
     }
 }
 
-class Expression {
+class Expression extends ASTNode {
     constructor(value) {
-        this.type = "Expression";
+        super("Expression");
         this.value = value;
     }
 }

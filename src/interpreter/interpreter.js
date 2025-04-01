@@ -1,9 +1,11 @@
 class Interpreter {
-    constructor() {
+    constructor(ast) {
+        this.ast = ast;
         this.variables = {};
     }
 
     run() {
+        if (!this.ast || !this.ast.statements) throw new Error("Invalid AST");
         return this.evaluate(this.ast);
     }
 
@@ -13,7 +15,7 @@ class Interpreter {
         } else if (ast.type === "Assignment") {
             this.variables[ast.variable] = this.evaluate(ast.expression);
         } else if (ast.type === "Expression") {
-            return ast.value;
+            return parseFloat(ast.value);
         }
     }
 }

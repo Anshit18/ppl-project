@@ -1,16 +1,15 @@
 {
-  "name": "ppl-project",
-  "version": "1.0.0",
-  "description": "A simple probabilistic programming language",
-  "main": "src/main.js",
-  "scripts": {
-    "test": "jest",
-    "start": "node src/main.js"
-  },
-  "dependencies": {
-    "nearley": "^2.20.1"
-  },
-  "devDependencies": {
-    "jest": "^29.0.0"
+    "name": "ppl-project",
+    "version": "1.0.0",
+    "description": "A probabilistic programming language (PPL)",
+    "main": "main.js",
+    "scripts": {
+      "test": "jest",
+      "start": "node main.js"
+    },
+    "dependencies": {},
+    "devDependencies": {
+      "jest": "^29.0.0"
+    }
   }
-}
+  

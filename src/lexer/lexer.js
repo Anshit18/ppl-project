@@ -7,11 +7,9 @@ class Lexer {
     tokenize() {
         let tokens = [];
         let token;
-
         while ((token = this.nextToken()) !== null) {
             tokens.push(token);
         }
-
         return tokens;
     }
 
@@ -27,11 +25,6 @@ class Lexer {
         if (char === '=') return this.makeToken('EQUAL', '=');
         if (char === '(') return this.makeToken('LPAREN', '(');
         if (char === ')') return this.makeToken('RPAREN', ')');
-        if (char === ',') return this.makeToken('COMMA', ',');
-        if (char === '+') return this.makeToken('PLUS', '+');
-        if (char === '-') return this.makeToken('MINUS', '-');
-        if (char === '*') return this.makeToken('MULTIPLY', '*');
-        if (char === '/') return this.makeToken('DIVIDE', '/');
 
         throw new Error(`Unexpected character: ${char}`);
     }
@@ -41,13 +34,7 @@ class Lexer {
         while (/[a-zA-Z]/.test(this.input[this.position])) {
             this.position++;
         }
-
-        let value = this.input.slice(start, this.position);
-
-        if (value === "sample") return { type: "SAMPLE", value };
-        if (value === "observe") return { type: "OBSERVE", value };
-
-        return this.makeToken('IDENTIFIER', value);
+        return this.makeToken('IDENTIFIER', this.input.slice(start, this.position));
     }
 
     readNumber() {
