@@ -3,6 +3,10 @@ class Interpreter {
         this.variables = {};
     }
 
+    run() {
+        return this.evaluate(this.ast);
+    }
+
     evaluate(ast) {
         if (ast.type === "Program") {
             ast.statements.forEach(stmt => this.evaluate(stmt));
