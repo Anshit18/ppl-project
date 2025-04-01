@@ -1,5 +1,3 @@
-// parser.js
-
 const AST = require("../ast/ast");
 
 class Parser {
@@ -37,18 +35,88 @@ class Parser {
         return new AST.Assignment(variable.value, expression);
     }
 
-    parseExpression() {
-        let token = this.tokens[this.position];
-        if (token.type === "NUMBER" || token.type === "IDENTIFIER") {
-            this.position++;
-            return new AST.Expression(token.value);
+    parseSample() {
+        this.consume("SAMPLE");
+        this.consume("LPAREN");
+        let distribution = this.consume("IDENTIFIER");
+        this.consume("LPAREN");
+
+        let params = [];
+        while (this.tokens[this.position].type !== "RPAREN") {
+            params.push(this.consume("NUMBER").value);
+            if (this.tokens[this.position].type === "COMMA") {
+                this.consume("COMMA");
+            }
         }
-        throw new Error(`Invalid expression: ${token.value}`);
+
+        this.consume("RPAREN");
+        this.consume("RPAREN");
+
+        return new AST.SampleExpression(distribution.value, params);
+    }
+
+    parseObserve() {
+        this.consume("OBSERVE");
+        this.consume("LPAREN");
+        let value = this.parseExpression();
+        this.consume("COMMA");
+        let distribution = this.parseSample();
+        this.consume("RPAREN");
+
+        return new AST.ObserveStatement(value, distribution);
+    }
+
+    parseExpression() {
+        let left = this.parseTerm();
+
+        while (this.position < this.tokens.length && (this.tokens[this.position].type === "PLUS" || this.tokens[this.position].type === "MINUS")) {
+            let operator = this.consume(this.tokens[this.position].type);
+            let right = this.parseTerm();
+            left = new AST.BinaryExpression(left, operator.value, right);
+        }
+
+        return left;
+    }
+
+    parseTerm() {
+        let left = this.parseFactor();
+
+        while (this.position < this.tokens.length && (this.tokens[this.position].type === "MULTIPLY" || this.tokens[this.position].type === "DIVIDE")) {
+            let operator = this.consume(this.tokens[this.position].type);
+            let right = this.parseFactor();
+            left = new AST.BinaryExpression(left, operator.value, right);
+        }
+
+        return left;
+    }
+
+    parseFactor() {
+        let token = this.tokens[this.position];
+
+        if (token.type === "NUMBER") {
+            return new AST.NumberLiteral(this.consume("NUMBER").value);
+        } else if (token.type === "IDENTIFIER") {
+            return new AST.Variable(this.consume("IDENTIFIER").value);
+        } else if (token.type === "LPAREN") {
+            this.consume("LPAREN");
+            let expr = this.parseExpression();
+            this.consume("RPAREN");
+            return expr;
+        }
+
+        throw new Error(`Unexpected token: ${token.value}`);
     }
 
     consume(expectedType) {
+        if (this.position >= this.tokens.length) {
+            throw new Error(`Unexpected end of input, expected ${expectedType}`);
+        }
+
         let token = this.tokens[this.position];
-        if (token.type !== expectedType) throw new Error(`Expected ${expectedType} but found ${token.type}`);
+        if (token.type !== expectedType) {
+            throw new Error(`Expected ${expectedType} but found ${token.type}`);
+        }
+
         this.position++;
         return token;
     }
