@@ -51,6 +51,7 @@ ppl-project/
 - **Abstract Syntax Tree**: Represents the structure of PPL programs.
 - **Interpretation**: Executes PPL programs, maintaining variable state.
 - **Probabilistic Constructs**:
+  - `normal(mean, stddev)`: Creates a normal distribution
   - `sample(distribution)`: Draws random values from distributions
   - `observe(value, distribution)`: For probabilistic inference
 
