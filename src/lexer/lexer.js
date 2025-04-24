@@ -57,7 +57,7 @@ class Lexer {
                 this.position++;
                 return { type: "RPAREN", value: ")" };
             }
-            if (char === ",") {  // ✅ **Fix: Handle comma token**
+            if (char === ",") { 
                 this.position++;
                 return { type: "COMMA", value: "," };
             }
@@ -70,7 +70,7 @@ class Lexer {
 
     identifier() {
         let start = this.position;
-        while (this.position < this.input.length && /[a-zA-Z0-9]/.test(this.input[this.position])) {
+        while (this.position < this.input.length && /[a-zA-Z0-9_]/.test(this.input[this.position])) {
             this.position++;
         }
         return { type: "IDENTIFIER", value: this.input.slice(start, this.position) };
@@ -78,9 +78,25 @@ class Lexer {
 
     number() {
         let start = this.position;
+        // Handle integer part
         while (this.position < this.input.length && /[0-9]/.test(this.input[this.position])) {
             this.position++;
         }
+        
+        // Handle decimal part if present
+        if (this.position < this.input.length && this.input[this.position] === '.') {
+            this.position++; // Skip the decimal point
+            // Must have at least one digit after decimal
+            if (this.position < this.input.length && /[0-9]/.test(this.input[this.position])) {
+                while (this.position < this.input.length && /[0-9]/.test(this.input[this.position])) {
+                    this.position++;
+                }
+            } else {
+                // Reset position to before the decimal
+                this.position--;
+            }
+        }
+        
         return { type: "NUMBER", value: Number(this.input.slice(start, this.position)) };
     }
 
