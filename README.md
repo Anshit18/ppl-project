@@ -37,9 +37,14 @@ ppl-project/
 │   │   └── utils.js             # Utility functions
 │
 ├── examples/
-│   └── sample-program.ppl       # Example PPL program
+│   ├── sample-program.ppl      # Example PPL program
+│   ├── height-weight.ppl       # Models relationship between height and weight
+│   ├── coin-flip.ppl           # Demonstrates coin flips using Bernoulli distribution
+│   └── mixture-model.ppl        # Models data from two different distributions      
 │
 ├── main.js                      # Entry point
+├── multiple-runs.js             # Runs the PPL program 10,000 times and collects statistical data
+├── visualize-results.js         # Creates charts and visualizations from the collected data
 ├── package.json                 # Project dependencies
 └── README.md                    # This file
 ```
