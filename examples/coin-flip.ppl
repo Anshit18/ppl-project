@@ -1,0 +1,14 @@
+# Coin flip model with observations
+# This example models flipping a biased coin
+
+# Prior for the coin bias
+p = 0.7  # We believe the coin has a 70% chance of landing heads
+
+# Simulate coin flips and observe outcomes
+observe(1, bernoulli(p))  # We observed heads (1)
+observe(1, bernoulli(p))  # We observed heads (1)
+observe(0, bernoulli(p))  # We observed tails (0)
+observe(1, bernoulli(p))  # We observed heads (1)
+
+# Sample a prediction for the next flip
+next_flip = sample(bernoulli(p))

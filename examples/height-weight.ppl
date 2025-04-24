@@ -1,0 +1,21 @@
+# Height and weight model
+# This example models the relationship between height and weight
+
+# Parameters of our model (in cm and kg)
+mean_height = 170
+std_height = 10
+weight_factor = 0.5  # kg per cm
+
+# Sample a random height
+height = sample(normal(mean_height, std_height))
+
+# Calculate expected weight based on height
+# Formula: weight = 0.5 * height + some noise
+expected_weight = height * weight_factor + 10
+
+# Observe an actual weight (with some random variation)
+weight = 95
+observe(weight, normal(expected_weight, 5))
+
+# Calculate BMI (Body Mass Index)
+bmi = weight / ((height / 100) * (height / 100))
