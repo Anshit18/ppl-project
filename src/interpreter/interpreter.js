@@ -186,6 +186,22 @@ class Interpreter {
                 throw new Error(`Unknown function: ${node.name}`);
         }
     }
+
+    resetState() {
+        // Reset the interpreter state for a fresh run
+        this.variables = {};
+        this.observations = [];
+        this.totalLogProb = 0;
+    }
+    
+    getState() {
+        // Return the current state of the interpreter
+        return {
+            variables: {...this.variables},
+            totalLogProb: this.totalLogProb,
+            observations: [...this.observations]
+        };
+    }
 }
 
 module.exports = Interpreter;

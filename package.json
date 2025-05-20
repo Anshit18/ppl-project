@@ -1,15 +1,20 @@
 {
-    "name": "ppl-project",
-    "version": "1.0.0",
-    "description": "A probabilistic programming language (PPL)",
-    "main": "main.js",
-    "scripts": {
-      "test": "jest",
-      "start": "node main.js"
-    },
-    "dependencies": {},
-    "devDependencies": {
-      "jest": "^29.0.0"
-    }
+  "name": "ppl-project",
+  "version": "1.0.0",
+  "description": "A probabilistic programming language (PPL)",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node main.js",
+    "multiple-runs": "node multiple-runs.js",
+    "visualize": "node visualize-results.js",
+    "full-analysis": "npm run multiple-runs && npm run visualize"
+  },
+  "dependencies": {
+    "chart.js": "^3.9.1",
+    "chartjs-node-canvas": "^4.1.6"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
   }
-  
+}
