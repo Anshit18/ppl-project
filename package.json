@@ -8,7 +8,10 @@
     "start": "node main.js",
     "multiple-runs": "node multiple-runs.js",
     "visualize": "node visualize-results.js",
-    "full-analysis": "npm run multiple-runs && npm run visualize"
+    "full-analysis": "npm run multiple-runs && npm run visualize",
+    "inference": "node inference-cli.js",
+    "visualize-inference": "node visualize-inference.js",
+    "compare-inference": "node compare-inference-methods.js"
   },
   "dependencies": {
     "chart.js": "^3.9.1",
