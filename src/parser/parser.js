@@ -135,6 +135,14 @@ class Parser {
 
     // Parse primary expressions (numbers, variables, parenthesized expressions, function calls)
     parsePrimary() {
+        // Unary minus: treat -x as (0 - x)
+        if (this.match("MINUS")) {
+            this.advance();
+            const operand = this.parsePrimary();
+            return { type: "BinaryExpression", operator: "-",
+                     left: { type: "NumberLiteral", value: 0 }, right: operand };
+        }
+
         if (this.match("NUMBER")) {
             return { type: "NumberLiteral", value: this.advance().value };
         }

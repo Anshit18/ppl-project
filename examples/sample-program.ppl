@@ -1,5 +1,18 @@
 # Example program for the PPL interpreter
-x = 5 + 3         # Assignment
+x = 5 + 1         # Assignment
 observe(x, normal(5, 1))  # Observing a value from a normal distribution
+observe(8, normal(5, 1))  # Observing a value from a normal distribution
 y = sample(normal(0, 1))  # Sampling from a normal distribution
 z = x * y        # Performing an arithmetic operation
+
+
+
+
+# get some more example to test
+# Add all observe result to get overall result 
+# (important sampling basic inference algo)
+
+
+# visualisation
+# roadmap for inference algo
+# multiple particle (inference)

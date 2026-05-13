@@ -11,7 +11,16 @@
     "full-analysis": "npm run multiple-runs && npm run visualize",
     "inference": "node inference-cli.js",
     "visualize-inference": "node visualize-inference.js",
-    "compare-inference": "node compare-inference-methods.js"
+    "compare-inference": "node compare-inference-methods.js",
+    "nhanes:inference": "node nhanes-inference.js",
+    "nhanes:validate": "node validate-nhanes.js nhanes-inference-results.json",
+    "nhanes:visualize": "node visualize-nhanes.js nhanes-inference-results.json",
+    "nhanes:full": "npm run nhanes:inference && npm run nhanes:validate && npm run nhanes:visualize",
+    "inference:importance": "node inference-cli.js --algorithm importance --example height-weight --samples 2000 --output importance-results.json",
+    "test:importance": "node test-importance-sampling.js",
+    "nhanes:mh": "node nhanes-mh.js",
+    "nhanes:mh:validate": "node validate-nhanes.js nhanes-mh-results.json",
+    "nhanes:mh:full": "npm run nhanes:mh && npm run nhanes:mh:validate"
   },
   "dependencies": {
     "chart.js": "^3.9.1",

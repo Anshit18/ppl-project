@@ -1,0 +1,23 @@
+# NHANES Height-Weight Linear Regression Model
+# Based on CDC NHANES 2009-2012 survey data
+
+# Priors based on CDC population statistics
+# Alpha (intercept): wide prior centered at -90
+alpha = sample(normal(-90, 50))
+
+# Beta (height coefficient): prior centered at 1.0 kg/cm
+beta = sample(normal(1.0, 0.5))
+
+# Sigma (error std dev): exponential prior with mean ~20 kg
+# Combined-gender data has higher variance than single-gender CDC reference
+sigma = sample(exponential(0.05))
+
+# Placeholder for observed data (will be replaced by runner)
+observed_height = 170
+observed_weight = 70
+
+# Linear model: weight = alpha + beta * height
+expected_weight = alpha + beta * observed_height
+
+# Observe the actual weight
+observe(observed_weight, normal(expected_weight, sigma))
